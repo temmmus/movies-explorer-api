@@ -11,7 +11,7 @@ const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const NotFoundError = require('./errors/not-found-err');
 
-const { PORT = 4000 } = process.env;
+const { PORT } = process.env;
 const app = express();
 
 app.use(bodyParser.json());
@@ -20,7 +20,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: 'http://localhost:3000',
+    origin: 'http://localhost:4000',
     credentials: true,
   }),
 );
