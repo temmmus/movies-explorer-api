@@ -1,1 +1,5 @@
-# movies-explorer-api
+# Дипломная работа программы Веб-разработчик
+## Студент Сидоров А.В.
+
+
+Бэкенд доступен на домене: temmmus-diploma.nomoreparties.sbs
