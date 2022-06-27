@@ -70,7 +70,6 @@ module.exports.patchUserInfo = (req, res, next) => {
     });
 };
 
-
 module.exports.login = (req, res, next) => {
   if (req.body.email == null || req.body.password == null) {
     next(new BadRequestError('Переданы некорректные данные при авторизации'));

@@ -5,17 +5,40 @@ const ServerError = require('../errors/server-err');
 const ForbiddenError = require('../errors/forbidden-err');
 
 module.exports.getMovies = (req, res, next) => {
-    Movie.find({})
+  Movie.find({})
     .then((movies) => res.send(movies))
     .catch(() => next(new ServerError('Произошла ошибка')));
 };
 
 module.exports.createMovie = (req, res, next) => {
-  const { country, director, duration, year, description, image, trailer, thumbnail, movieId, nameRU, nameEN } = req.body;
+  const {
+    country,
+    director,
+    duration,
+    year,
+    description,
+    image,
+    trailer,
+    thumbnail,
+    movieId,
+    nameRU,
+    nameEN,
+  } = req.body;
   const owner = req.user._id;
 
   Movie.create({
-    country, director, duration, year, description, image, trailer, thumbnail, movieId, nameRU, nameEN, owner,
+    country,
+    director,
+    duration,
+    year,
+    description,
+    image,
+    trailer,
+    thumbnail,
+    movieId,
+    nameRU,
+    nameEN,
+    owner,
   })
     .then((movie) => res.send(movie))
     .catch((err) => {
@@ -28,7 +51,7 @@ module.exports.createMovie = (req, res, next) => {
 };
 
 module.exports.deleteMovie = (req, res, next) => {
-    Movie.findById({ _id: req.params.movieId })
+  Movie.findById({ _id: req.params.movieId })
     .then((movie) => {
       if (movie === null) {
         return next(new NotFoundError('Фильм по указанному id не найден'));
