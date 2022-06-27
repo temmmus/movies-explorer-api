@@ -30,7 +30,7 @@ const movieSchema = new mongoose.Schema({
       message: 'Передан невалидный url',
     },
   },
-  trailerLink: {
+  trailer: {
     type: String,
     required: true,
     validate: {
@@ -46,10 +46,6 @@ const movieSchema = new mongoose.Schema({
       message: 'Передан невалидный url',
     },
   },
-  owner: {
-    type: mongoose.Schema.ObjectId,
-    required: true,
-  },
   movieId: {
     type: mongoose.Schema.ObjectId,
     required: true,
@@ -60,6 +56,10 @@ const movieSchema = new mongoose.Schema({
   },
   nameEN: {
     type: String,
+    required: true,
+  },
+  owner: {
+    type: mongoose.Schema.ObjectId,
     required: true,
   },
 });

@@ -11,10 +11,11 @@ module.exports.getMovies = (req, res, next) => {
 };
 
 module.exports.createMovie = (req, res, next) => {
-  const { country, director, duration, year, description, image, trailer, nameRU, nameEN, thumbnail, movieId  } = req.body;
+  const { country, director, duration, year, description, image, trailer, thumbnail, movieId, nameRU, nameEN } = req.body;
+  const owner = req.user._id;
 
   Movie.create({
-    country, director, duration, year, description, image, trailer, nameRU, nameEN, thumbnail, movieId,
+    country, director, duration, year, description, image, trailer, thumbnail, movieId, nameRU, nameEN, owner,
   })
     .then((movie) => res.send(movie))
     .catch((err) => {
@@ -40,7 +41,7 @@ module.exports.deleteMovie = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        next(new BadRequestError('Переданы некорректные данные при создании фильма'));
+        next(new BadRequestError('Переданы некорректные данные при удалении фильма'));
       } else {
         next(new ServerError('Произошла ошибка'));
       }
