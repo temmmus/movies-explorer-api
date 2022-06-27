@@ -5,11 +5,12 @@ const { JWT_SECRET } = process.env;
 
 module.exports = (req, res, next) => {
 
-  // const token = req.headers.authorization;
-  const token = req.headers.authorization.split(' ')[1];
-  let payload;
+  let payload
 
   try {
+    // const token = req.headers.authorization;
+    const token = req.headers.authorization.split(' ')[1];
+
     payload = jwt.verify(token, JWT_SECRET);
     
   } catch (err) {
