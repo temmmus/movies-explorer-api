@@ -8,6 +8,7 @@ const {
 } = require('../controllers/movies');
 
 router.get('/movies', getMovies);
+
 router.post('/movies', celebrate({
   body: Joi.object().keys({
     country: Joi.string().required(),
@@ -23,6 +24,7 @@ router.post('/movies', celebrate({
     nameEN: Joi.string().required(),
   }),
 }), createMovie);
+
 router.delete('/movies/:movieId', celebrate({
   params: Joi.object().keys({
     movieId: Joi.string().alphanum().length(24),
