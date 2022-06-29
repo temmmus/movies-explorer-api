@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const UnauthorizedError = require('../errors/unauthorized-err');
+const ForbiddenError = require('../errors/forbidden-err');
 
 const { JWT_SECRET } = process.env;
 
@@ -12,8 +12,7 @@ module.exports = (req, res, next) => {
 
     payload = jwt.verify(token, JWT_SECRET);
   } catch (err) {
-    console.log(err);
-    next(new UnauthorizedError('Доступ запрещен'));
+    next(new ForbiddenError('Доступ запрещен'));
   }
 
   req.user = payload;

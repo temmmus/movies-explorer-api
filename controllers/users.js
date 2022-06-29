@@ -53,17 +53,19 @@ module.exports.getUserInfo = (req, res, next) => {
 };
 
 module.exports.patchUserInfo = (req, res, next) => {
-  const { name, about } = req.body;
+  const { name, email } = req.body;
 
   User.findByIdAndUpdate(
     req.user._id,
-    { $set: { name, about } },
+    { $set: { name, email } },
     { new: true, runValidators: true },
   )
     .then((user) => res.send(user))
     .catch((err) => {
       if (err.name === 'ValidationError' || err.name === 'CastError') {
         next(new BadRequestError('Переданы некорректные данные при обновлении профиля'));
+      } else if (err.code === 11000) {
+        next(new ConflictError('Пользователь с указанным email уже существует'));
       } else {
         next(new ServerError('Произошла ошибка'));
       }
@@ -85,6 +87,6 @@ module.exports.login = (req, res, next) => {
         .end();
     })
     .catch(() => {
-      next(new UnauthorizedError('Указан неверный логин или пароль'));
+      next(new UnauthorizedError('Неправильная почта или пароль'));
     });
 };

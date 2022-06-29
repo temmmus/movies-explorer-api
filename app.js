@@ -5,8 +5,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const { errors, celebrate, Joi } = require('celebrate');
-const { login, createUser } = require('./controllers/users');
+const { errors } = require('celebrate');
 const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const NotFoundError = require('./errors/not-found-err');
@@ -37,24 +36,11 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
-app.post('/signin', celebrate({
-  body: Joi.object().keys({
-    email: Joi.string().required().email(),
-    password: Joi.string().required(),
-  }),
-}), login);
-app.post('/signup', celebrate({
-  body: Joi.object().keys({
-    email: Joi.string().required().email(),
-    password: Joi.string().required(),
-    name: Joi.string().min(2).max(30),
-  }),
-}), createUser);
+app.use(require('./routes/auth'));
 
 app.use(auth);
-
-app.use('/users', require('./routes/users'));
-app.use('/movies', require('./routes/movies'));
+app.use(require('./routes/users'));
+app.use(require('./routes/movies'));
 
 app.use((req, res, next) => {
   next(new NotFoundError('Запрашиваемый адрес не существует'));
