@@ -19,7 +19,8 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: ['http://localhost:3000', 'https://temmmus-diploma.nomoreparties.sbs'],
+    // origin: ['http://localhost:3000', 'https://temmmus-diploma.nomoreparties.sbs'],
+    origin: 'https://temmmus-diploma.nomoreparties.sbs',
     credentials: true,
   }),
 );
@@ -71,5 +72,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log('Поехали!');
+  console.log('Поехали! Приложение доступно на порту: ' + PORT);
 });
