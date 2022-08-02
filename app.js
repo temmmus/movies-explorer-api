@@ -6,6 +6,8 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
+const path = require('path');
+const router = require('./routes/index');
 const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const NotFoundError = require('./errors/not-found-err');
@@ -16,6 +18,9 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+app.use('/api', router);
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(
   cors({
@@ -72,5 +77,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log('Поехали! Приложение доступно на порту: ' + PORT);
+  console.log(`Поехали! Приложение доступно на порту: ${PORT}`);
 });
