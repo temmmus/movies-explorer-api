@@ -18,10 +18,16 @@ module.exports.createUser = (req, res, next) => {
     .then((hash) => User.create({
       name, email, password: hash,
     }))
-    .then(() => {
-      res.send({
-        name, email,
-      });
+    // .then(() => {
+    //   res.send({
+    //     name, email,
+    //   });
+    // })
+    .then((user) => {
+      const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '7d' });
+      res
+        .send({ token })
+        .end();
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {

@@ -60,7 +60,7 @@ module.exports.deleteMovie = (req, res, next) => {
         return next(new ForbiddenError('Невозможно удалить чужой фильм'));
       }
       return movie.remove()
-        .then(() => res.send({ message: 'Фильм удален' }));
+        .then(() => res.send(movie._id));
     })
     .catch((err) => {
       if (err.name === 'CastError') {
