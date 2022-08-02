@@ -24,8 +24,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(
   cors({
-    // origin: ['http://localhost:3000', 'https://temmmus-diploma.nomoreparties.sbs'],
-    origin: 'https://temmmus-diploma.nomoreparties.sbs',
+    origin: ['http://localhost:3000', 'https://temmmus-diploma.nomoreparties.sbs'],
+    // origin: 'https://temmmus-diploma.nomoreparties.sbs',
     credentials: true,
   }),
 );
