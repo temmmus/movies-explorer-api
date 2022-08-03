@@ -19,13 +19,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.use('/api', router);
-app.use(express.static(path.join(__dirname, 'public')));
-
 app.use(
   cors({
     origin: ['http://localhost:3000', 'https://temmmus-diploma.nomoreparties.sbs'],
-    // origin: 'https://temmmus-diploma.nomoreparties.sbs',
     credentials: true,
   }),
 );
@@ -42,11 +38,11 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
-app.use(require('./routes/auth'));
-
-app.use(auth);
-app.use(require('./routes/users'));
-app.use(require('./routes/movies'));
+app.use('/api', router);
+app.use(express.static(path.join(__dirname, 'public')));
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'dist/index.html'));
+// });
 
 app.use((req, res, next) => {
   next(new NotFoundError('Запрашиваемый адрес не существует'));
