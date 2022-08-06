@@ -8,7 +8,6 @@ const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
 const path = require('path');
 const router = require('./routes/index');
-const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const NotFoundError = require('./errors/not-found-err');
 
