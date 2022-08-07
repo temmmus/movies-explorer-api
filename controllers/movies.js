@@ -5,7 +5,7 @@ const ServerError = require('../errors/server-err');
 const ForbiddenError = require('../errors/forbidden-err');
 
 module.exports.getMovies = (req, res, next) => {
-  Movie.find({})
+  Movie.find({ owner: req.user._id })
     .then((movies) => res.send(movies))
     .catch(() => next(new ServerError('Произошла ошибка')));
 };
