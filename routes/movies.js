@@ -35,7 +35,7 @@ router.post('/movies', celebrate({
       }
       return helpers.message('Некорректное значение в поле image');
     }),
-    movieId: Joi.number().integer().required(),
+    id: Joi.number().integer().required(),
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
   }),
@@ -43,7 +43,7 @@ router.post('/movies', celebrate({
 
 router.delete('/movies/:movieId', celebrate({
   params: Joi.object().keys({
-    movieId: Joi.string().hex().length(24),
+    id: Joi.string().hex().length(24),
   }),
 }), deleteMovie);
 

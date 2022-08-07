@@ -26,7 +26,11 @@ const movieSchema = new mongoose.Schema({
     type: String,
     required: true,
     validate: {
-      validator: (value) => validator.isURL(value, { protocols: ['http', 'https', 'ftp'], require_tld: true, require_protocol: true }),
+      validator: (value) => validator.isURL(value, {
+        protocols: ['http', 'https', 'ftp'],
+        require_tld: true,
+        require_protocol: true,
+      }),
       message: 'Передан невалидный url',
     },
   },
@@ -34,7 +38,11 @@ const movieSchema = new mongoose.Schema({
     type: String,
     required: true,
     validate: {
-      validator: (value) => validator.isURL(value, { protocols: ['http', 'https', 'ftp'], require_tld: true, require_protocol: true }),
+      validator: (value) => validator.isURL(value, {
+        protocols: ['http', 'https', 'ftp'],
+        require_tld: true,
+        require_protocol: true,
+      }),
       message: 'Передан невалидный url',
     },
   },
@@ -42,11 +50,15 @@ const movieSchema = new mongoose.Schema({
     type: String,
     required: true,
     validate: {
-      validator: (value) => validator.isURL(value, { protocols: ['http', 'https', 'ftp'], require_tld: true, require_protocol: true }),
+      validator: (value) => validator.isURL(value, {
+        protocols: ['http', 'https', 'ftp'],
+        require_tld: true,
+        require_protocol: true,
+      }),
       message: 'Передан невалидный url',
     },
   },
-  movieId: {
+  id: {
     type: Number,
     required: true,
   },

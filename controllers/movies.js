@@ -20,7 +20,7 @@ module.exports.createMovie = (req, res, next) => {
     image,
     trailerLink,
     thumbnail,
-    movieId,
+    id,
     nameRU,
     nameEN,
   } = req.body;
@@ -35,7 +35,7 @@ module.exports.createMovie = (req, res, next) => {
     image,
     trailerLink,
     thumbnail,
-    movieId,
+    id,
     nameRU,
     nameEN,
     owner,
@@ -51,16 +51,15 @@ module.exports.createMovie = (req, res, next) => {
 };
 
 module.exports.deleteMovie = (req, res, next) => {
-  Movie.findById({ _id: req.params.movieId })
-    .then((movie) => {
-      if (movie === null) {
+  // Movie.findById({ id: req.params.movieId })
+  Movie.find({ id: req.params.movieId, owner: req.user._id })
+    .then((movies) => {
+      if (movies.length === 0) {
         return next(new NotFoundError('Фильм по указанному id не найден'));
       }
-      if (!movie.owner.equals(req.user._id)) {
-        return next(new ForbiddenError('Невозможно удалить чужой фильм'));
-      }
-      return movie.remove()
-        .then(() => res.send(movie._id));
+      return Movie.deleteMany({ id: req.params.movieId, owner: req.user._id })
+        // .then(() => res.send(movies._id));
+        .then(() => res.send(req.params.movieId));
     })
     .catch((err) => {
       if (err.name === 'CastError') {
